@@ -5,16 +5,12 @@
 #include "dlnode.h"
 #include <stdlib.h>
 #include "value_t.h"
-
 enum DLLError{
     EDLLMEMORYFAIL = 60,
     EDLLEMPTY
 };
-struct DLList{
-    struct DLNode * head;
-    struct DLNode * tail;
-};
 
+struct DLList;
 struct DLList * newDLL();
 void deleteDLL(struct DLList * * adpDLL);
 void clearDLL(struct DLList * pDLL);

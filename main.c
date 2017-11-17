@@ -2,6 +2,11 @@
 #include "mathesi.h"
 #include "dlnode.h"
 #include "value_t.h"
+#include "dllist.h"
+#include "dllist_utility.h"
+#include "dlnode_utility.h"
+#include "allocdynamique.h"
+
 #include <stdlib.h>
 
 struct PrimeFactor{
@@ -13,10 +18,18 @@ struct PrimeFactorization{
     unsigned count;
     struct PrimeFactor * primeFactors;
 };
-
+struct DLNode{
+    struct DLNode *previous;
+    struct DLNode *next;
+    value_t value;
+};
+struct DLList{
+    struct DLNode * head;
+    struct DLNode * tail;
+};
 
 int main(){
-
+    /*
     printf("small info :\n");
     printf("char : %d octets\n", sizeof(char));
     printf("int : %d octets\n", sizeof(int));
@@ -127,6 +140,63 @@ int main(){
     struct PrimeFactorization f={84, 0, NULL};
     primeFactorsD(&f);
     free(f.primeFactors);
+    */
+
+    printf("--------------------------\n");
+    printf("Exercice 3\n");
+    printf("--------------------------\n");
+
+    value_t val = 10;
+    value_t val3 = 20;
+    struct DLList *liste=newDLL();
+    //printf("%d",liste->head);
+    printf("\n");
+
+    insertHeadDLL(liste, val);
+    printf("head :");
+    printf("%d",liste->head->value);
+    printf("\n");
+
+    insertTailDLL(liste, val3);
+    printf("tail:");
+    printf("%d",liste->tail->value);
+    printf("\n");
+
+    struct DLNode *node=liste->head;
+    value_t val2=5;
+    insertAfterDLL(liste, node, val2);
+    printf("%d",node->next->value);
+    printf("\n");
+
+    while(node!=NULL){
+        printf("%d",node->value);
+        printf("\n");
+        node=getNextDLN(node);
+    }
+
+    printf("\n");
+    bool mybool= isEmptyDLL(liste);
+    printf(mybool?"true":"false");
+    printf("\n");
+
+
+    size_t *size=malloc(sizeof(*size));
+    unsigned int x = 2;
+    size[0]=x;
+    value_t *tab=to_arrayDLL(size, liste);
+    printf("%d\n",tab[2]);
+    //FREEEEEE le tableau une fois fini !!!!!
+/*
+    size_t *size2=malloc(sizeof(*size2));
+    unsigned int y = 2;
+    size2[0]=y;
+    value_t *tab2=to_array_reverseDLL(size2, liste);
+    printf("%d", tab2[1]);
+*/
+    struct DLList *nListe = newDLL();
+    nListe = reverseDLL(liste);
+    //printf("%d",nListe->tail->value);
+
 
     //===================================
     //END
@@ -134,6 +204,13 @@ int main(){
     return 0;
 
 }
+
+
+
+
+
+
+
 
 
 
